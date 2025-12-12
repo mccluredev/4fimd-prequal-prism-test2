@@ -1,0 +1,145 @@
+@import "tokens.css";
+
+/* =========================================================
+   STEP CONTAINER
+========================================================= */
+
+.step {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.step-header {
+  max-width: 760px;
+  margin: 0 auto 48px;
+}
+
+.step-title {
+  margin: 0;
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-48);
+  line-height: 1.2;
+  color: var(--color-font-primary);
+}
+
+.accent-word {
+  color: var(--color-font-accent);
+}
+
+.step-subtitle {
+  margin-top: 16px;
+  font-size: var(--font-size-16);
+  color: var(--color-font-muted);
+  line-height: 1.6;
+}
+
+/* =========================================================
+   ANSWER GRID
+========================================================= */
+
+.pill-grid {
+  width: 100%;
+  max-width: 760px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 20px;
+  column-gap: 24px;
+
+  margin: 0 auto;
+}
+
+/* Single column variant */
+.pill-grid.single-col {
+  grid-template-columns: 1fr;
+  max-width: 640px;
+}
+
+/* Three column variant */
+.pill-grid.three-col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 760px) {
+  .pill-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pill-grid.three-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   STEP ACTION BUTTONS
+========================================================= */
+
+.step-actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 56px;
+}
+
+/* =========================================================
+   TWO-COLUMN BLOCKS
+========================================================= */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 760px;
+  margin: 0 auto 24px;
+}
+
+@media (max-width: 760px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   SLIDERS
+========================================================= */
+
+.slider-block {
+  max-width: 540px;
+  margin: 0 auto 56px;
+}
+
+/* =========================================================
+   INPUT BLOCKS
+========================================================= */
+
+.input-block {
+  max-width: 640px;
+  margin: 0 auto 24px;
+}
+
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+========================================================= */
+
+@media (max-width: 600px) {
+  .step-title {
+    font-size: 36px;
+  }
+
+  .slider-value {
+    font-size: 36px;
+  }
+
+  .pill-option {
+    height: 52px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
+}
