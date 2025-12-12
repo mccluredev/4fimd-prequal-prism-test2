@@ -105,17 +105,17 @@ document.addEventListener("DOMContentLoaded", () => {
     radio.addEventListener("change", (e) => {
       const branch = e.target.dataset.branch;
       
-      // If branch is changing, reset furthest index for affected sections
+      // If branch is changing, reset furthest index to employment structure step
       if (currentBranch && currentBranch !== branch) {
         console.log("Branch changed from", currentBranch, "to", branch);
-        // Reset progress past the employment structure question
+        
+        // Find the employment structure step index in ALL steps
         const employmentStepIndex = steps.findIndex(s => s.id === 'step-employment-structure');
-        const visibleSteps = steps.filter(step => {
-          const style = window.getComputedStyle(step);
-          return style.display !== 'none';
-        });
-        const currentVisibleIndex = visibleSteps.indexOf(steps[employmentStepIndex]);
-        furthestIndex = Math.min(furthestIndex, currentVisibleIndex);
+        
+        // Reset furthestIndex to this step (keep everything before, reset everything after)
+        if (employmentStepIndex !== -1) {
+          furthestIndex = employmentStepIndex;
+        }
       }
       
       setBranch(branch);
@@ -138,6 +138,11 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================== */
   document.querySelectorAll(".section-pill").forEach((pill) => {
     pill.addEventListener("click", () => {
+      // Only allow clicking if section is completed
+      if (!pill.classList.contains("completed")) {
+        return;
+      }
+      
       const targetSection = pill.dataset.section;
       
       // Find the first visible step in that section
@@ -218,9 +223,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       pill.classList.toggle("active", sec === activeSection);
 
-      // A section is "complete" if all of its steps are PAST furthestIndex (not at or before)
-      // and it's not the current section
-      const isComplete = meta && meta.max < currentIndex && sec !== activeSection;
+      // A section is "complete" if user has progressed past the last step of that section
+      const isComplete = meta && meta.max < furthestIndex && sec !== activeSection;
       pill.classList.toggle("completed", isComplete);
     });
   }
