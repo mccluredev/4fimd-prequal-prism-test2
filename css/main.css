@@ -1,0 +1,51 @@
+/* Import all component stylesheets */
+@import "tokens.css";
+@import "layout.css";
+@import "components.css";
+@import "pages.css";
+
+/* =========================================
+   GLOBAL RESET & BASE STYLES
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: var(--font-family-main);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  color: var(--color-font-primary);
+  background: var(--color-bg-main);
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Prevent text selection during rapid clicking */
+button,
+label {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Remove default button styles */
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Remove default input styles */
+input,
+select {
+  font-family: inherit;
+}
+
+/* Smooth scrolling for the content area */
+.content-area {
+  scroll-behavior: smooth;
+}
