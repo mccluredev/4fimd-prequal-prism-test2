@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
   let furthestIndex = 0;
+  let employmentType = null; // Track employment structure choice
 
   const formatter = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
 
@@ -43,6 +44,22 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress();
   }
 
+  /* ==========================
+     Sidebar Section Navigation
+  ========================== */
+  document.querySelectorAll(".section-pill").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const targetSection = pill.dataset.section;
+      
+      // Find the first step in that section
+      const firstStepInSection = steps.find((step) => step.dataset.section === targetSection);
+      
+      if (firstStepInSection) {
+        goToStep(firstStepInSection.id);
+      }
+    });
+  });
+
   // Next buttons
   document.querySelectorAll(".btn-next").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -57,6 +74,19 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const prev = btn.dataset.prev;
       if (prev) goToStep(prev);
+    });
+  });
+
+  /* ==========================
+     Employment Structure Branching
+  ========================== */
+  document.querySelectorAll('input[name="employment-structure"]').forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+      employmentType = e.target.value;
+      console.log("Employment type selected:", employmentType);
+      
+      // You can add logic here to show/hide specific steps based on the choice
+      // For now, we'll just track it
     });
   });
 
