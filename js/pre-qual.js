@@ -210,6 +210,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const sec = pill.dataset.section;
       const meta = sectionMeta[sec];
 
+      // If section doesn't exist in current branch, show as inactive (gray)
+      if (!meta) {
+        pill.classList.remove("active", "completed");
+        return;
+      }
+
       pill.classList.toggle("active", sec === activeSection);
 
       // A section is "complete" if all of its steps are PAST furthestIndex (not at or before)
