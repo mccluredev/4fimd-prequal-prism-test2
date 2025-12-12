@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>4FiMD Pre-Qualification</title>
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
@@ -43,8 +43,29 @@
 
                 <!-- SECTION 1 — LOAN INFORMATION -->
 
-                <!-- STEP 1: Loan Purpose -->
-                <section class="step active" id="step-loan-purpose" data-section="loan-info">
+                <!-- STEP 1: Loan Amount -->
+                <section class="step active" id="step-loan-amount" data-section="loan-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Requested <span class="accent-word">loan amount</span>
+                        </h1>
+                        <p class="step-subtitle">Tell us how much you'd like to finance.</p>
+                    </header>
+
+                    <div class="input-block">
+                        <div class="currency-input">
+                            <span class="currency-prefix">$</span>
+                            <input id="loan-amount-input" type="text" inputmode="numeric" autocomplete="off" placeholder="50,000" />
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-loan-purpose">Continue</button>
+                    </div>
+                </section>
+
+                <!-- STEP 2: Loan Purpose -->
+                <section class="step" id="step-loan-purpose" data-section="loan-info">
                     <header class="step-header">
                         <h1 class="step-title">
                             What's the <span class="accent-word">purpose</span> of the loan?
@@ -79,6 +100,7 @@
                     </div>
 
                     <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-loan-amount">Back</button>
                         <button class="btn btn-primary btn-next" type="button" data-next="step-credit-score">Continue</button>
                     </div>
                 </section>
@@ -183,7 +205,7 @@
 
                 <!-- SECTION 3 — EMPLOYMENT INFORMATION -->
 
-                <!-- STEP 6: Employment Structure -->
+                <!-- STEP 6: Employment Structure (BRANCH POINT) -->
                 <section class="step" id="step-employment-structure" data-section="employment-info">
                     <header class="step-header">
                         <h1 class="step-title">
@@ -193,23 +215,23 @@
 
                     <div class="pill-grid single-col">
                         <label class="pill-option">
-                            <input type="radio" name="employment-structure" value="Employed" />
+                            <input type="radio" name="employment-structure" value="Employed" data-branch="employed" />
                             <span>I am employed by a practice or system</span>
                         </label>
                         <label class="pill-option">
-                            <input type="radio" name="employment-structure" value="Owner" />
+                            <input type="radio" name="employment-structure" value="Owner" data-branch="owner" />
                             <span>I am an owner or partner in a practice</span>
                         </label>
                     </div>
 
                     <div class="step-actions">
                         <button class="btn btn-secondary btn-prev" type="button" data-prev="step-transition">Back</button>
-                        <button class="btn btn-primary btn-next" type="button" data-next="step-compensation">Continue</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-compensation-employed" data-branch-next>Continue</button>
                     </div>
                 </section>
 
-                <!-- STEP 7: Compensation -->
-                <section class="step" id="step-compensation" data-section="employment-info">
+                <!-- EMPLOYED PATH: Compensation -->
+                <section class="step branch-employed" id="step-compensation-employed" data-section="employment-info">
                     <header class="step-header">
                         <h1 class="step-title">
                             Tell us about your <span class="accent-word">payment structure</span>.
@@ -254,15 +276,15 @@
 
                     <div class="step-actions">
                         <button class="btn btn-secondary btn-prev" type="button" data-prev="step-employment-structure">Back</button>
-                        <button class="btn btn-primary btn-next" type="button" data-next="step-employer">Continue</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-employer-employed">Continue</button>
                     </div>
                 </section>
 
 
                 <!-- SECTION 4 — PRACTICE INFORMATION -->
 
-                <!-- STEP 8: Employer -->
-                <section class="step" id="step-employer" data-section="practice-info">
+                <!-- EMPLOYED PATH: Employer Details -->
+                <section class="step branch-employed" id="step-employer-employed" data-section="practice-info">
                     <header class="step-header">
                         <h1 class="step-title">
                             Tell us about your <span class="accent-word">employer</span>.
@@ -293,7 +315,129 @@
                     </div>
 
                     <div class="step-actions">
-                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-compensation">Back</button>
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-compensation-employed">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-insurance">Continue</button>
+                    </div>
+                </section>
+
+                <!-- OWNER PATH: Practice Basics -->
+                <section class="step branch-owner" id="step-practice-basics" data-section="practice-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Tell us about the <span class="accent-word">practice</span>.
+                        </h1>
+                    </header>
+
+                    <div class="two-col">
+                        <div class="input-block">
+                            <label for="business-years-input" class="input-label">How long has it been in business?</label>
+                            <input id="business-years-input" type="text" placeholder="e.g., 5 years" />
+                        </div>
+                        <div class="input-block">
+                            <label for="business-zip-input" class="input-label">What is your business zip code?</label>
+                            <input id="business-zip-input" type="text" placeholder="12345" />
+                        </div>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="input-block">
+                            <label for="physicians-count-input" class="input-label">How many physicians are in the practice?</label>
+                            <input id="physicians-count-input" type="number" placeholder="0" />
+                        </div>
+                        <div class="input-block">
+                            <label for="providers-count-input" class="input-label">How many providers are in the practice?</label>
+                            <input id="providers-count-input" type="number" placeholder="0" />
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-employment-structure">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-affiliations">Continue</button>
+                    </div>
+                </section>
+
+                <!-- OWNER PATH: Affiliations -->
+                <section class="step branch-owner" id="step-affiliations" data-section="practice-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Do you have any <span class="accent-word">system affiliations</span> or partnerships?
+                        </h1>
+                    </header>
+
+                    <div class="pill-grid single-col">
+                        <label class="pill-option">
+                            <input type="radio" name="affiliations" value="Yes" />
+                            <span>Yes</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="affiliations" value="No" />
+                            <span>No</span>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-practice-basics">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-patient-volume">Continue</button>
+                    </div>
+                </section>
+
+                <!-- OWNER PATH: Patient Volume -->
+                <section class="step branch-owner" id="step-patient-volume" data-section="practice-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            What's the estimated <span class="accent-word">monthly patient volume</span> for the practice?
+                        </h1>
+                    </header>
+
+                    <div class="input-block">
+                        <input id="patient-volume-input" type="number" placeholder="0" style="text-align: center; font-size: 24px;" />
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-affiliations">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-payer-mix">Continue</button>
+                    </div>
+                </section>
+
+                <!-- OWNER PATH: Payer Mix -->
+                <section class="step branch-owner" id="step-payer-mix" data-section="practice-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Tell us about your <span class="accent-word">payer mix</span>.
+                        </h1>
+                    </header>
+
+                    <div class="input-block">
+                        <label for="payers-count-input" class="input-label">How many payers is your practice working with?</label>
+                        <input id="payers-count-input" type="number" placeholder="0" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Please estimate the percentage makeup of your payer mix</label>
+                        <div class="two-col">
+                            <div class="input-block">
+                                <label for="payer-private-input" class="input-label">Private (%)</label>
+                                <input id="payer-private-input" type="number" min="0" max="100" placeholder="0" />
+                            </div>
+                            <div class="input-block">
+                                <label for="payer-medicare-input" class="input-label">Medicare (%)</label>
+                                <input id="payer-medicare-input" type="number" min="0" max="100" placeholder="0" />
+                            </div>
+                        </div>
+                        <div class="two-col">
+                            <div class="input-block">
+                                <label for="payer-medicaid-input" class="input-label">Medicaid (%)</label>
+                                <input id="payer-medicaid-input" type="number" min="0" max="100" placeholder="0" />
+                            </div>
+                            <div class="input-block">
+                                <label for="payer-other-input" class="input-label">Other (%)</label>
+                                <input id="payer-other-input" type="number" min="0" max="100" placeholder="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-patient-volume">Back</button>
                         <button class="btn btn-primary btn-next" type="button" data-next="step-insurance">Continue</button>
                     </div>
                 </section>
