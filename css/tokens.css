@@ -1,0 +1,85 @@
+/* =========================================
+   4FiMD DESIGN TOKENS (SPEC-ACCURATE)
+   Do not modify component CSS — update tokens here.
+========================================= */
+
+:root {
+  /* ---------------------------------------
+     BRAND COLORS
+  ---------------------------------------- */
+  --color-font-primary: #2d495a;      /* Page headers, sidebar title */
+  --color-font-accent: #2fcab2;       /* Accent word in headline */
+  --color-font-muted: #747474;        /* Sidebar pill text, disabled states */
+
+  --color-bg-main: #faf8f2;           /* Page background, right panel */
+  --color-bg-sidebar: #faf8f2;        /* Sidebar background */
+  --color-bg-completed: #fafafa;      /* Completed pill fill */
+
+  --color-border-default: #ebebeb;    /* Inactive sidebar pill border */
+  --color-border-active: #747474;     /* Active (current) section border */
+  --color-border-complete: #2fcab2;   /* Completed section border */
+  --color-border-input: #dedbd3;      /* Input field border */
+
+  --color-brand-teal: #2fcab2;        /* Brand highlight, dial progress */
+
+  /* Buttons */
+  --color-btn-primary-bg: #2d495a;    /* Continue (enabled) */
+  --color-btn-primary-hover: #263f4e;
+  --color-btn-disabled-bg: #ebebeb;   /* Continue (disabled) */
+  --color-btn-disabled-text: #747474;
+  --color-btn-secondary-bg: #fff;
+  --color-btn-secondary-hover: #f5f5f5;
+
+  /* ---------------------------------------
+     TYPOGRAPHY
+  ---------------------------------------- */
+  --font-family-main: "At Aero", system-ui, -apple-system,
+                      BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* Font sizes */
+  --font-size-48: 48px;
+  --font-size-28: 28px;
+  --font-size-20: 20px;
+  --font-size-16: 16px;
+  --font-size-14: 14px;
+  --font-size-13: 13px;
+  --font-size-40: 40px;
+
+  /* ---------------------------------------
+     SPACING SCALE (based on your spec)
+     These allow ultra-precise layout tuning.
+  ---------------------------------------- */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 32px;
+  --space-xl: 40px;
+  --space-2xl: 56px;
+  --space-3xl: 80px;
+
+  /* ---------------------------------------
+     RADII (based on pill geometry specs)
+  ---------------------------------------- */
+  --radius-pill: 999px;        /* Fully rounded: section pills + option pills */
+  --radius-large-pill: 28px;   /* Option pills (56px tall → 28px radius) */
+  --radius-medium-pill: 22px;  /* Sidebar pills (44px tall → 22px radius) */
+  --radius-input: 12px;        
+  --radius-button: 26px;
+
+  /* ---------------------------------------
+     SHADOWS
+  ---------------------------------------- */
+  --shadow-soft: 0px 10px 30px rgba(0, 0, 0, 0.06);
+
+  /* ---------------------------------------
+     TRANSITIONS
+  ---------------------------------------- */
+  --transition-fast: 0.18s ease-out;
+  --transition-medium: 0.3s ease-out;
+  --transition-smooth: 0.6s ease-out;
+}
