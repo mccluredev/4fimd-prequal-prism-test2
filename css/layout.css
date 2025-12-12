@@ -79,11 +79,11 @@ html, body {
   transition: all var(--transition-fast);
 }
 
-.section-pill.completed {
+.section-pill.complete {
   cursor: pointer; /* Only show pointer for completed sections */
 }
 
-.section-pill.completed:hover {
+.section-pill.complete:hover {
   background: rgba(47, 202, 178, 0.05);
 }
 
@@ -93,7 +93,7 @@ html, body {
   font-weight: var(--font-weight-medium);
 }
 
-.section-pill.completed {
+.section-pill.complete {
   background: var(--color-bg-completed);
   border: 2px solid var(--color-brand-teal);
   color: var(--color-font-primary);
