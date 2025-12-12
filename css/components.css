@@ -1,0 +1,315 @@
+@import "tokens.css";
+
+/* =========================================================
+   BUTTONS (PRIMARY / SECONDARY / DISABLED)
+========================================================= */
+
+.btn {
+  border-radius: var(--radius-button);
+  padding: 12px 40px;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-main);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast),
+              color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast);
+  
+  min-width: 140px;
+}
+
+.btn-primary {
+  background: var(--color-btn-primary-bg);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  background: var(--color-btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary[disabled],
+.btn-primary.disabled,
+.btn-primary--disabled {
+  background: var(--color-btn-disabled-bg);
+  color: var(--color-btn-disabled-text);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: var(--color-btn-secondary-bg);
+  border: 1px solid var(--color-border-default);
+  color: var(--color-font-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--color-btn-secondary-hover);
+}
+
+.btn-secondary:active {
+  background: #ececec;
+}
+
+/* =========================================================
+   TEXT INPUTS
+========================================================= */
+
+.input-block {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.input-label {
+  display: block;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 8px;
+  color: var(--color-font-primary);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--color-border-input);
+  font-size: var(--font-size-16);
+  font-family: var(--font-family-main);
+  color: var(--color-font-primary);
+  background: #fff;
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-brand-teal);
+  box-shadow: 0 0 0 3px rgba(47, 202, 178, 0.1);
+}
+
+/* Select dropdown styling */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232d495a' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* Currency input */
+.currency-input {
+  position: relative;
+}
+
+.currency-prefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-font-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.currency-input input {
+  padding-left: 26px;
+}
+
+/* =========================================================
+   UNIVERSAL ANSWER OPTION BUTTON (Pills)
+========================================================= */
+
+.pill-option {
+  height: 56px;
+  border-radius: var(--radius-large-pill);
+  padding: 0 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: var(--font-size-16);
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  white-space: nowrap;
+
+  background: var(--color-font-primary);
+  color: #fff;
+  border: 2px solid transparent;
+
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.pill-option span {
+  width: 100%;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.pill-option input {
+  display: none;
+}
+
+/* Hover state */
+.pill-option:hover {
+  background: var(--color-bg-main);
+  color: var(--color-font-primary);
+  border-color: var(--color-brand-teal);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Selected */
+.pill-option:has(input:checked) {
+  background: var(--color-bg-main);
+  color: var(--color-font-primary);
+  border-color: var(--color-brand-teal);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.pill-option:has(input:checked):hover {
+  background: var(--color-bg-main);
+  color: var(--color-font-primary);
+  border-color: var(--color-brand-teal);
+  transform: translateY(-2px);
+}
+
+/* Active (click) state */
+.pill-option:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   SLIDERS
+========================================================= */
+
+.slider-block {
+  max-width: 540px;
+  margin: 0 auto 56px;
+}
+
+.slider-value {
+  font-size: var(--font-size-48);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-font-primary);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, 
+    var(--color-brand-teal) 0%, 
+    var(--color-brand-teal) var(--slider-progress, 40%), 
+    #ebebeb var(--slider-progress, 40%), 
+    #ebebeb 100%);
+  outline: none;
+  margin: 16px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-brand-teal);
+  box-shadow: 0 0 0 4px rgba(47, 202, 178, 0.25);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-brand-teal);
+  box-shadow: 0 0 0 4px rgba(47, 202, 178, 0.25);
+  cursor: pointer;
+  border: none;
+}
+
+.slider-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.slider-range-label {
+  font-size: var(--font-size-13);
+  color: var(--color-font-muted);
+}
+
+/* =========================================================
+   CHECKBOX STYLING
+========================================================= */
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-size: var(--font-size-14);
+  color: var(--color-font-muted);
+  line-height: 1.6;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--color-brand-teal);
+}
+
+/* =========================================================
+   FORM GROUPS
+========================================================= */
+
+.form-group {
+  margin-bottom: 32px;
+}
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-font-primary);
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* =========================================================
+   DISCLAIMER TEXT
+========================================================= */
+
+.disclaimer-text {
+  font-size: var(--font-size-13);
+  color: var(--color-font-muted);
+  line-height: 1.6;
+  margin-top: 24px;
+  text-align: center;
+}
