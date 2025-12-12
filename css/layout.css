@@ -77,8 +77,12 @@ html, body {
   border: 1px solid var(--color-border-default);
   color: var(--color-font-muted);
   
-  cursor: default;
+  cursor: pointer; /* Changed from default to pointer */
   transition: all var(--transition-fast);
+}
+
+.section-pill:hover {
+  background: rgba(47, 202, 178, 0.05);
 }
 
 .section-pill.active {
@@ -110,8 +114,8 @@ html, body {
 
 #progress-dial {
   width: 180px;
-  height: 180px;
-  transform: rotate(180deg); /* correct orientation */
+  height: 90px;
+  transform: rotate(0deg);
 }
 
 .dial-bg {
@@ -152,7 +156,7 @@ html, body {
   overflow-y: auto; /* the RIGHT PANE scrolls, not the page */
   overflow-x: hidden;
 
-  padding: 80px;
+  padding: 120px 80px; /* More vertical padding for breathing room */
 
   display: flex;
   flex-direction: column;
@@ -191,11 +195,11 @@ html, body {
 }
 
 .step-header {
-  margin-bottom: 56px;
+  margin-bottom: 64px; /* Increased from 48px */
 }
 
 .step-actions {
-  margin-top: 60px;
+  margin-top: 80px; /* Increased from 60px */
   display: flex;
   justify-content: center;
   gap: 24px;
