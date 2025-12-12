@@ -75,11 +75,15 @@ html, body {
   border: 1px solid var(--color-border-default);
   color: var(--color-font-muted);
   
-  cursor: pointer; /* Changed from default to pointer */
+  cursor: default; /* Default cursor */
   transition: all var(--transition-fast);
 }
 
-.section-pill:hover {
+.section-pill.completed {
+  cursor: pointer; /* Only show pointer for completed sections */
+}
+
+.section-pill.completed:hover {
   background: rgba(47, 202, 178, 0.05);
 }
 
@@ -102,8 +106,8 @@ html, body {
 .sidebar-progress {
   position: relative;
   width: 100%; /* Match sidebar width */
-  margin-top: auto;
-  padding-top: 40px;
+  margin-top: auto; /* Pushes to bottom */
+  padding-top: 80px; /* Increased from 40px to give more space */
   padding-bottom: 20px; /* Add bottom padding so dial isn't cut off */
 
   display: flex;
