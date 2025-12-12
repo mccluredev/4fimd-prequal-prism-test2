@@ -25,6 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
+  // Initially hide all branch-specific steps BEFORE building section metadata
+  document.querySelectorAll('.branch-employed, .branch-owner').forEach(step => {
+    step.style.display = 'none';
+  });
+
   rebuildSectionMeta();
 
   let currentIndex = 0;
@@ -62,11 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     rebuildSectionMeta();
   }
-
-  // Initially hide all branch-specific steps
-  document.querySelectorAll('.branch-employed, .branch-owner').forEach(step => {
-    step.style.display = 'none';
-  });
 
   /* ==========================
      Navigation
