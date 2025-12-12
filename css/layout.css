@@ -27,7 +27,7 @@ html, body {
   min-width: 320px;
   background: var(--color-bg-sidebar);
 
-  padding: 60px 48px 40px;
+  padding: 60px 48px 60px; /* Increased bottom padding from 40px to 60px */
 
   display: flex;
   flex-direction: column;
