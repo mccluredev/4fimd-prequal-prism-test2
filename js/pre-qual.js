@@ -104,6 +104,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('input[name="employment-structure"]').forEach((radio) => {
     radio.addEventListener("change", (e) => {
       const branch = e.target.dataset.branch;
+      
+      // If branch is changing, reset furthest index for affected sections
+      if (currentBranch && currentBranch !== branch) {
+        console.log("Branch changed from", currentBranch, "to", branch);
+        // Reset progress past the employment structure question
+        const employmentStepIndex = steps.findIndex(s => s.id === 'step-employment-structure');
+        const visibleSteps = steps.filter(step => {
+          const style = window.getComputedStyle(step);
+          return style.display !== 'none';
+        });
+        const currentVisibleIndex = visibleSteps.indexOf(steps[employmentStepIndex]);
+        furthestIndex = Math.min(furthestIndex, currentVisibleIndex);
+      }
+      
       setBranch(branch);
       
       // Update the Continue button to go to the correct next step
@@ -113,6 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (branch === 'owner') {
         continueBtn.dataset.next = 'step-practice-basics';
       }
+      
+      updateSidebar();
+      updateProgress();
     });
   });
 
