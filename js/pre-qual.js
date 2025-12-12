@@ -212,9 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       pill.classList.toggle("active", sec === activeSection);
 
-      // A section is "complete" if all of its steps are at or before furthestIndex
-      const isComplete =
-        meta && meta.max <= furthestIndex && sec !== activeSection;
+      // A section is "complete" if all of its steps are PAST furthestIndex (not at or before)
+      // and it's not the current section
+      const isComplete = meta && meta.max < currentIndex && sec !== activeSection;
       pill.classList.toggle("completed", isComplete);
     });
   }
