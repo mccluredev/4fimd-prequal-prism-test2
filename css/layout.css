@@ -103,17 +103,18 @@ html, body {
 
 .sidebar-progress {
   position: relative;
-  width: 180px;
-  height: 140px;
+  width: 100%; /* Match sidebar width */
   margin-top: auto;
+  padding-top: 40px;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 #progress-dial {
-  width: 180px;
+  width: 100%; /* Match pill width */
   height: 90px;
   transform: rotate(0deg);
 }
