@@ -1,21 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
   const steps = Array.from(document.querySelectorAll(".step"));
-  const totalSteps = steps.length;
+  let currentBranch = null; // 'employed' or 'owner'
 
   // Build section metadata for completion tracking
   const sectionMeta = {};
-  steps.forEach((step, index) => {
-    const sec = step.dataset.section;
-    if (!sectionMeta[sec]) {
-      sectionMeta[sec] = { min: index, max: index };
-    } else {
-      sectionMeta[sec].max = index;
-    }
-  });
+  
+  function rebuildSectionMeta() {
+    Object.keys(sectionMeta).forEach(key => delete sectionMeta[key]);
+    
+    const visibleSteps = steps.filter(step => {
+      if (!currentBranch) return !step.classList.contains('branch-employed') && !step.classList.contains('branch-owner');
+      if (currentBranch === 'employed') return !step.classList.contains('branch-owner');
+      if (currentBranch === 'owner') return !step.classList.contains('branch-employed');
+      return true;
+    });
+    
+    visibleSteps.forEach((step, index) => {
+      const sec = step.dataset.section;
+      if (!sectionMeta[sec]) {
+        sectionMeta[sec] = { min: index, max: index };
+      } else {
+        sectionMeta[sec].max = index;
+      }
+    });
+  }
+  
+  rebuildSectionMeta();
 
   let currentIndex = 0;
   let furthestIndex = 0;
-  let employmentType = null; // Track employment structure choice
 
   const formatter = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
 
@@ -25,16 +38,57 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================
+     Branch Management
+  ========================== */
+  function setBranch(branch) {
+    currentBranch = branch;
+    console.log("Branch set to:", branch);
+    
+    // Hide all branch-specific steps
+    document.querySelectorAll('.branch-employed, .branch-owner').forEach(step => {
+      step.style.display = 'none';
+    });
+    
+    // Show only steps for the selected branch
+    if (branch === 'employed') {
+      document.querySelectorAll('.branch-employed').forEach(step => {
+        step.style.display = 'block';
+      });
+    } else if (branch === 'owner') {
+      document.querySelectorAll('.branch-owner').forEach(step => {
+        step.style.display = 'block';
+      });
+    }
+    
+    rebuildSectionMeta();
+  }
+
+  // Initially hide all branch-specific steps
+  document.querySelectorAll('.branch-employed, .branch-owner').forEach(step => {
+    step.style.display = 'none';
+  });
+
+  /* ==========================
      Navigation
   ========================== */
   function goToStep(id) {
     const target = document.getElementById(id);
     if (!target) return;
 
+    // Check if target step is visible based on current branch
+    if (target.classList.contains('branch-employed') && currentBranch !== 'employed') return;
+    if (target.classList.contains('branch-owner') && currentBranch !== 'owner') return;
+
     steps.forEach((step) => step.classList.remove("active"));
     target.classList.add("active");
 
-    currentIndex = steps.indexOf(target);
+    // Calculate index among visible steps only
+    const visibleSteps = steps.filter(step => {
+      const style = window.getComputedStyle(step);
+      return style.display !== 'none';
+    });
+    
+    currentIndex = visibleSteps.indexOf(target);
     furthestIndex = Math.max(furthestIndex, currentIndex);
 
     // Scroll to top of content area
@@ -45,14 +99,44 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================
+     Employment Structure Branching
+  ========================== */
+  document.querySelectorAll('input[name="employment-structure"]').forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+      const branch = e.target.dataset.branch;
+      setBranch(branch);
+      
+      // Update the Continue button to go to the correct next step
+      const continueBtn = document.querySelector('#step-employment-structure .btn-next');
+      if (branch === 'employed') {
+        continueBtn.dataset.next = 'step-compensation-employed';
+      } else if (branch === 'owner') {
+        continueBtn.dataset.next = 'step-practice-basics';
+      }
+    });
+  });
+
+  /* ==========================
      Sidebar Section Navigation
   ========================== */
   document.querySelectorAll(".section-pill").forEach((pill) => {
     pill.addEventListener("click", () => {
       const targetSection = pill.dataset.section;
       
-      // Find the first step in that section
-      const firstStepInSection = steps.find((step) => step.dataset.section === targetSection);
+      // Find the first visible step in that section
+      const firstStepInSection = steps.find((step) => {
+        if (step.dataset.section !== targetSection) return false;
+        
+        // Check if step is visible
+        const style = window.getComputedStyle(step);
+        if (style.display === 'none') return false;
+        
+        // Check branch compatibility
+        if (step.classList.contains('branch-employed') && currentBranch !== 'employed') return false;
+        if (step.classList.contains('branch-owner') && currentBranch !== 'owner') return false;
+        
+        return true;
+      });
       
       if (firstStepInSection) {
         goToStep(firstStepInSection.id);
@@ -77,19 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ==========================
-     Employment Structure Branching
-  ========================== */
-  document.querySelectorAll('input[name="employment-structure"]').forEach((radio) => {
-    radio.addEventListener("change", (e) => {
-      employmentType = e.target.value;
-      console.log("Employment type selected:", employmentType);
-      
-      // You can add logic here to show/hide specific steps based on the choice
-      // For now, we'll just track it
-    });
-  });
-
   // Submit button
   document.querySelector(".btn-submit")?.addEventListener("click", () => {
     // Collect form data
@@ -103,6 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Log form data (in production, send to server)
     console.log("Form Data:", formData);
+    console.log("Branch:", currentBranch);
     
     // Show success message or redirect to results page
     alert("Thank you! Your pre-qualification request has been submitted.");
@@ -112,7 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
      Sidebar highlighting + completion
   ========================== */
   function updateSidebar() {
-    const activeSection = steps[currentIndex].dataset.section;
+    const activeStep = steps.find(s => s.classList.contains('active'));
+    if (!activeStep) return;
+    
+    const activeSection = activeStep.dataset.section;
+    
     document.querySelectorAll(".section-pill").forEach((pill) => {
       const sec = pill.dataset.section;
       const meta = sectionMeta[sec];
@@ -134,6 +210,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const circumference = 157; // Arc length for the dial
 
   function updateProgress() {
+    // Count only visible steps
+    const visibleSteps = steps.filter(step => {
+      const style = window.getComputedStyle(step);
+      return style.display !== 'none';
+    });
+    
+    const totalSteps = visibleSteps.length;
     const pct = Math.round(((currentIndex + 1) / totalSteps) * 100);
     const offset = circumference - (pct / 100) * circumference;
     dial.style.strokeDashoffset = offset;
