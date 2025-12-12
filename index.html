@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4FiMD Pre-Qualification</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR (Left 30% of screen) -->
+    <aside class="sidebar">
+
+        <h2 class="sidebar-title">Application Summary</h2>
+
+        <nav class="sidebar-nav">
+            <div class="section-pill active" data-section="loan-info">Loan Information</div>
+            <div class="section-pill" data-section="financial-info">Financial Information</div>
+            <div class="section-pill" data-section="employment-info">Employment Information</div>
+            <div class="section-pill" data-section="practice-info">Practice Information</div>
+            <div class="section-pill" data-section="personal-info">Personal Information</div>
+        </nav>
+
+        <div class="sidebar-progress">
+            <svg id="progress-dial" viewBox="0 0 120 60">
+                <path class="dial-bg" d="M10 60 A50 50 0 0 1 110 60" />
+                <path class="dial-progress" d="M10 60 A50 50 0 0 1 110 60" />
+            </svg>
+            <div class="dial-percent" id="progress-label">0%</div>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT (Right 70% of screen) -->
+    <main class="content-area">
+
+        <div id="form-container">
+
+            <form id="prequal-form" novalidate>
+
+                <!-- SECTION 1 — LOAN INFORMATION -->
+
+                <!-- STEP 1: Loan Purpose -->
+                <section class="step active" id="step-loan-purpose" data-section="loan-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            What's the <span class="accent-word">purpose</span> of the loan?
+                        </h1>
+                    </header>
+
+                    <div class="pill-grid">
+                        <label class="pill-option">
+                            <input type="radio" name="loan-purpose" value="Debt Refinance/Consolidation" />
+                            <span>Debt Refinance/Consolidation</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="loan-purpose" value="Equipment Purchase" />
+                            <span>Equipment Purchase</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="loan-purpose" value="Practice Acquisition/Expansion" />
+                            <span>Practice Acquisition/Expansion</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="loan-purpose" value="Start-up Practice" />
+                            <span>Start-up Practice</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="loan-purpose" value="Working Capital" />
+                            <span>Working Capital</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="loan-purpose" value="Other" />
+                            <span>Other</span>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-credit-score">Continue</button>
+                    </div>
+                </section>
+
+
+                <!-- SECTION 2 — FINANCIAL INFORMATION -->
+
+                <!-- STEP 2: Credit Score -->
+                <section class="step" id="step-credit-score" data-section="financial-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            What's your estimated <span class="accent-word">credit score</span>?
+                        </h1>
+                    </header>
+
+                    <div class="pill-grid">
+                        <label class="pill-option">
+                            <input type="radio" name="credit-score" value="720-850" />
+                            <span>720 - 850</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="credit-score" value="680-719" />
+                            <span>680 - 719</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="credit-score" value="640-679" />
+                            <span>640 - 679</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="credit-score" value="0-639" />
+                            <span>0 - 639</span>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-loan-purpose">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-income">Continue</button>
+                    </div>
+                </section>
+
+                <!-- STEP 3: Income -->
+                <section class="step" id="step-income" data-section="financial-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            What's your estimated <span class="accent-word">monthly income</span>?
+                        </h1>
+                    </header>
+
+                    <div class="slider-block">
+                        <div class="slider-value" id="income-display">$40,000</div>
+                        <input type="range" id="income-input" min="0" max="100000" value="40000" step="1000" />
+                        <div class="slider-bottom-row">
+                            <span class="slider-range-label">$0</span>
+                            <span class="slider-range-label">$100K+</span>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-credit-score">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-debt">Continue</button>
+                    </div>
+                </section>
+
+                <!-- STEP 4: Debt -->
+                <section class="step" id="step-debt" data-section="financial-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            What's your estimated <span class="accent-word">monthly debt payments</span>?
+                        </h1>
+                    </header>
+
+                    <div class="slider-block">
+                        <div class="slider-value" id="debt-display">$12,000</div>
+                        <input type="range" id="debt-input" min="0" max="50000" value="12000" step="1000" />
+                        <div class="slider-bottom-row">
+                            <span class="slider-range-label">$0</span>
+                            <span class="slider-range-label">$50K+</span>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-income">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-transition">Continue</button>
+                    </div>
+                </section>
+
+                <!-- STEP 5: Transition Screen -->
+                <section class="step" id="step-transition" data-section="financial-info">
+                    <header class="step-header">
+                        <h1 class="step-title">Thanks! You're almost done.</h1>
+                        <p class="step-subtitle">
+                            While banks only care about your credit, our next section will <span class="accent-word">focus on you</span> and your practice - 
+                            Because we know that <span class="accent-word">you are more</span> than just a number.
+                        </p>
+                    </header>
+
+                    <div class="step-actions">
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-employment-structure">Continue</button>
+                    </div>
+                </section>
+
+
+                <!-- SECTION 3 — EMPLOYMENT INFORMATION -->
+
+                <!-- STEP 6: Employment Structure -->
+                <section class="step" id="step-employment-structure" data-section="employment-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Tell us about your <span class="accent-word">employment structure</span>.
+                        </h1>
+                    </header>
+
+                    <div class="pill-grid single-col">
+                        <label class="pill-option">
+                            <input type="radio" name="employment-structure" value="Employed" />
+                            <span>I am employed by a practice or system</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="radio" name="employment-structure" value="Owner" />
+                            <span>I am an owner or partner in a practice</span>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-transition">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-compensation">Continue</button>
+                    </div>
+                </section>
+
+                <!-- STEP 7: Compensation -->
+                <section class="step" id="step-compensation" data-section="employment-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Tell us about your <span class="accent-word">payment structure</span>.
+                        </h1>
+                    </header>
+
+                    <div class="form-group">
+                        <label class="form-label">What best describes your situation?</label>
+                        <div class="pill-grid three-col">
+                            <label class="pill-option">
+                                <input type="radio" name="payment-type" value="W2" />
+                                <span>W2</span>
+                            </label>
+                            <label class="pill-option">
+                                <input type="radio" name="payment-type" value="1099" />
+                                <span>1099</span>
+                            </label>
+                            <label class="pill-option">
+                                <input type="radio" name="payment-type" value="Both" />
+                                <span>Both</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">How long have you been paid like this?</label>
+                        <div class="pill-grid three-col">
+                            <label class="pill-option">
+                                <input type="radio" name="payment-duration" value="Less than one year" />
+                                <span>Less than one year</span>
+                            </label>
+                            <label class="pill-option">
+                                <input type="radio" name="payment-duration" value="More than one year" />
+                                <span>More than one year</span>
+                            </label>
+                            <label class="pill-option">
+                                <input type="radio" name="payment-duration" value="More than two years" />
+                                <span>More than two years</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-employment-structure">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-employer">Continue</button>
+                    </div>
+                </section>
+
+
+                <!-- SECTION 4 — PRACTICE INFORMATION -->
+
+                <!-- STEP 8: Employer -->
+                <section class="step" id="step-employer" data-section="practice-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Tell us about your <span class="accent-word">employer</span>.
+                        </h1>
+                    </header>
+
+                    <div class="input-block">
+                        <label for="employer-name-input" class="input-label">What's your employer's name?*</label>
+                        <input id="employer-name-input" type="text" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What best describes your employer?</label>
+                        <div class="pill-grid three-col">
+                            <label class="pill-option">
+                                <input type="radio" name="employer-type" value="For-profit" />
+                                <span>For-profit</span>
+                            </label>
+                            <label class="pill-option">
+                                <input type="radio" name="employer-type" value="Non-profit" />
+                                <span>Non-profit</span>
+                            </label>
+                            <label class="pill-option">
+                                <input type="radio" name="employer-type" value="Public" />
+                                <span>Public</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-compensation">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-insurance">Continue</button>
+                    </div>
+                </section>
+
+
+                <!-- SECTION 5 — PERSONAL INFORMATION -->
+
+                <!-- STEP 9: Insurance -->
+                <section class="step" id="step-insurance" data-section="personal-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Tell us about your <span class="accent-word">insurance</span> coverage.
+                        </h1>
+                        <p class="step-subtitle">Check all that apply to you.</p>
+                    </header>
+
+                    <div class="pill-grid three-col" id="insurance-group">
+                        <label class="pill-option">
+                            <input type="checkbox" name="insurance" value="Life" />
+                            <span>Life</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="checkbox" name="insurance" value="Disability" />
+                            <span>Disability</span>
+                        </label>
+                        <label class="pill-option">
+                            <input type="checkbox" name="insurance" value="Malpractice" />
+                            <span>Malpractice</span>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-employer">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-personal">Continue</button>
+                    </div>
+                </section>
+
+                <!-- STEP 10: Personal Info -->
+                <section class="step" id="step-personal" data-section="personal-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            Tell us about <span class="accent-word">yourself</span>.
+                        </h1>
+                        <p class="step-subtitle">This helps us customize your payment and pre-qualification</p>
+                    </header>
+
+                    <div class="two-col">
+                        <div class="input-block">
+                            <label for="first-name-input" class="input-label">First Name</label>
+                            <input id="first-name-input" type="text" />
+                        </div>
+                        <div class="input-block">
+                            <label for="last-name-input" class="input-label">Last Name</label>
+                            <input id="last-name-input" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="input-block">
+                            <label for="npi-input" class="input-label">NPI Number</label>
+                            <input id="npi-input" type="text" />
+                        </div>
+                        <div class="input-block">
+                            <label for="specialty-input" class="input-label">Medical Specialty</label>
+                            <select id="specialty-input">
+                                <option value="">Select specialty</option>
+                                <option value="Family Medicine">Family Medicine</option>
+                                <option value="Internal Medicine">Internal Medicine</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                                <option value="Surgery">Surgery</option>
+                                <option value="Psychiatry">Psychiatry</option>
+                                <option value="Anesthesiology">Anesthesiology</option>
+                                <option value="Emergency Medicine">Emergency Medicine</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <p class="disclaimer-text">
+                        4FiMD respects data privacy and will never sell your personal information. 
+                        We also do not conduct a credit pull to estimate your monthly payment.
+                    </p>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-insurance">Back</button>
+                        <button class="btn btn-primary btn-next" type="button" data-next="step-contact">Continue</button>
+                    </div>
+                </section>
+
+                <!-- STEP 11: Contact -->
+                <section class="step" id="step-contact" data-section="personal-info">
+                    <header class="step-header">
+                        <h1 class="step-title">
+                            You're <span class="accent-word">one step</span> away.
+                        </h1>
+                    </header>
+
+                    <div class="input-block">
+                        <label for="email-input" class="input-label">Email</label>
+                        <input id="email-input" type="email" />
+                    </div>
+                    
+                    <div class="input-block">
+                        <label for="phone-input" class="input-label">Phone Number</label>
+                        <input id="phone-input" type="tel" />
+                    </div>
+
+                    <div class="input-block">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="consent-input" value="I agree" />
+                            <span>I agree that 4FiMD may contact me by email, text, or phone with updates and offers. I can opt out anytime—details are in our Privacy Policy.</span>
+                        </label>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="btn btn-secondary btn-prev" type="button" data-prev="step-personal">Back</button>
+                        <button class="btn btn-primary btn-submit" type="button">See Payment Estimate</button>
+                    </div>
+                </section>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="js/pre-qual.js"></script>
+</body>
+</html>
