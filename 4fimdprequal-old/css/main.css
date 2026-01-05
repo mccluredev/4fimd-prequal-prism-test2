@@ -1,0 +1,411 @@
+
+/* Load AtHauss from Squarespace CDN */
+@font-face {
+  font-family: 'AtHauss';
+  src: url('https://static1.squarespace.com/static/6823723b472b7d701bd2f75c/t/68238ad816e14b4b03243872/1747159768869/AtHaussAero-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --brand-ice-blue: #2FCAB2;
+  --brand-space-cadet: #222F4F;
+  --brand-baby-powder: #FAF8F2;
+  --brand-charcoal: #2D495A;
+  --brand-accent-blue: #7AE3D2;
+  --brand-indian-red: #DB5461;
+  --brand-raisin-black: #202328;
+
+  --font-primary: 'AtHauss', sans-serif;
+
+  --color-bg: var(--brand-baby-powder);
+  --color-text: var(--brand-charcoal);
+  --color-border: var(--brand-space-cadet);
+  --color-accent: var(--brand-ice-blue);
+  --color-error: var(--brand-indian-red);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.prequal-flow {
+  font-family: var(--font-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--color-bg);
+}
+
+.prequal-flow .hidden,
+.section.hidden {
+  display: none !important;
+}
+
+.prequal-flow .container {
+  width: 100%;
+  max-width: 800px;
+  padding: 10px;
+}
+
+.prequal-flow input,
+.prequal-flow select,
+.prequal-flow textarea {
+  width: 100%;
+  padding: 16px 14px;
+  margin-bottom: 32px;
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  box-sizing: border-box;
+  background-color: white;
+  appearance: none;
+  font-size: 1rem;
+}
+
+.prequal-flow input:focus,
+.prequal-flow select:focus,
+.prequal-flow textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(47, 202, 178, 0.2);
+  outline: none;
+}
+
+.prequal-flow label {
+  color: var(--color-border);
+  font-family: var(--font-primary);
+}
+
+.prequal-flow .btn,
+.prequal-flow .next-button,
+.prequal-flow .back-button,
+.prequal-flow .submit-button,
+.prequal-flow .apply-button {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  border-radius: 9999px;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  box-shadow: none;
+  transition: box-shadow 0.3s ease;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.prequal-flow .btn:hover,
+.prequal-flow .next-button:hover,
+.prequal-flow .submit-button:hover,
+.prequal-flow .apply-button:hover {
+  box-shadow: 0 4px 12px rgba(47, 202, 178, 0.3);
+}
+
+.prequal-flow .back-button {
+  background-color: var(--color-border);
+  color: white;
+}
+
+.prequal-flow .back-button:hover {
+  box-shadow: 0 4px 12px rgba(34, 47, 79, 0.3);
+}
+
+.prequal-flow .error-input {
+  border-color: var(--color-error);
+  background-color: #fff0f0;
+}
+
+#payment-calculator,
+#completion-screen,
+#loading-screen {
+  display: none;
+}
+
+body.submitted #payment-calculator,
+body.submitted #completion-screen {
+  display: block;
+}
+
+.progress-container {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  background-color: #e0e0e0;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background-color: var(--color-accent);
+  height: 100%;
+  width: 0;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  text-align: right;
+  font-size: 14px;
+  margin-top: 4px;
+  color: #333;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  color: var(--color-border);
+  margin-top: 0;
+  font-family: var(--font-primary);
+}
+
+.card p {
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  line-height: 1.6;
+}
+
+.card p .btn {
+  display: inline-block;
+  width: auto;
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+.payment-display {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.payment-display label {
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  font-size: 18px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.payment-display .amount {
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--color-accent);
+  font-family: var(--font-primary);
+}
+
+.term-slider-container {
+  margin: 30px 0;
+}
+
+.term-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  margin: 20px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.term-slider::-webkit-slider-thumb,
+.term-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.term-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.disclaimer {
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: nowrap; /* Desktop: keep buttons side by side */
+}
+
+.button-container button {
+  flex: 1 1 auto;
+  max-width: 48%;
+}
+
+/* Mobile: stack buttons, Submit on top */
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column-reverse;
+  }
+
+  .button-container button {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .button-container .submit-button {
+    margin-bottom: 16px; /* space between submit and back */
+  }
+}
+
+/* === Responsive Adjustments & Mobile Refinements === */
+
+@media (max-width: 768px) {
+  .prequal-flow .form-row {
+    flex-direction: column;
+  }
+
+  .prequal-flow .card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .prequal-flow label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .prequal-flow input,
+  .prequal-flow select,
+  .prequal-flow textarea {
+    margin-bottom: 24px;
+    padding: 14px 12px;
+    font-size: 1rem;
+  }
+
+  .prequal-flow input:first-of-type {
+    margin-top: 8px;
+  }
+
+  .prequal-flow .btn,
+  .prequal-flow .next-button,
+  .prequal-flow .submit-button,
+  .prequal-flow .back-button {
+    font-size: 14px;
+    padding: 12px 20px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+  }
+
+  .prequal-flow .button-container button {
+    max-width: 100%;
+  }
+
+  .payment-display .amount {
+    font-size: 32px;
+  }
+
+  .term-slider-container {
+    margin: 20px 0;
+  }
+
+  .term-labels {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .term-labels > * {
+    flex: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .payment-display .amount {
+    font-size: 28px;
+  }
+
+  .prequal-flow input,
+  .prequal-flow select,
+  .prequal-flow textarea {
+    margin-bottom: 28px;
+    padding: 16px 14px;
+  }
+
+  .prequal-flow .btn,
+  .prequal-flow .next-button,
+  .prequal-flow .submit-button,
+  .prequal-flow .back-button {
+    padding: 14px 24px;
+    margin-bottom: 36px;
+  }
+}
+
+@media (max-width: 320px) {
+  .term-labels {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* === Fix tight spacing in form layout === */
+
+.prequal-flow .card h3,
+.prequal-flow h3,
+.prequal-flow h2,
+.prequal-flow h1 {
+  margin-bottom: 24px;
+  font-size: 1.5rem;
+}
+
+.prequal-flow label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.prequal-flow input,
+.prequal-flow select,
+.prequal-flow textarea {
+  margin-bottom: 32px;
+  padding: 16px 14px;
+}
+
+.prequal-flow .btn,
+.prequal-flow .next-button,
+.prequal-flow .submit-button,
+.prequal-flow .back-button {
+  margin-top: 24px;
+  margin-bottom: 48px;
+  padding: 14px 28px;
+}
+
+/* Optional: add space below each form section */
+.prequal-flow .card {
+  margin-bottom: 40px;
+}
+

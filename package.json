@@ -1,0 +1,13 @@
+{
+  "name": "4fimd-prequal-form",
+  "version": "1.0.0",
+  "description": "4FiMD Pre-Qualification Form",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["4fimd", "prequal", "form"],
+  "author": "",
+  "license": "ISC"
+}

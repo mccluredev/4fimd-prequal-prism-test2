@@ -1,0 +1,418 @@
+/* =========================================================
+   STEP CONTAINER
+========================================================= */
+
+.step {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.step-header {
+  max-width: 900px;
+  margin: 0 auto 48px auto; /* Center within container */
+  text-align: center; /* Center-align text */
+}
+
+.step-title {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-medium);
+  font-size: 56px;
+  line-height: 1.15;
+  color: var(--color-font-primary);
+  text-align: center; /* Center alignment */
+}
+
+.accent-word {
+  color: var(--color-brand-teal);
+  font-weight: var(--font-weight-medium);
+}
+
+.step-subtitle {
+  margin-top: 20px;
+  font-size: 18px;
+  color: var(--color-font-primary);
+  line-height: 1.5;
+  font-family: var(--font-family-main);
+  text-align: center; /* Center alignment */
+}
+
+/* =========================================================
+   ANSWER GRID
+========================================================= */
+
+.pill-grid {
+  width: 100%;
+  max-width: 760px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 16px;
+  column-gap: 20px;
+
+  margin: 0 auto;
+}
+
+/* Single column variant */
+.pill-grid.single-col {
+  grid-template-columns: 1fr;
+  max-width: 640px;
+}
+
+/* Three column variant */
+.pill-grid.three-col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 760px) {
+  .pill-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pill-grid.three-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   STEP ACTION BUTTONS
+========================================================= */
+
+.step-actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 56px;
+}
+
+/* =========================================================
+   TWO-COLUMN BLOCKS
+========================================================= */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 540px;
+  margin: 0 auto 32px;
+}
+
+.two-col .input-block {
+  max-width: none;
+  margin: 0;
+}
+
+/* =========================================================
+   SLIDERS
+========================================================= */
+
+.slider-block {
+  max-width: 540px;
+  margin: 0 auto 56px;
+}
+
+/* =========================================================
+   INPUT BLOCKS
+========================================================= */
+
+.input-block {
+  max-width: 760px;
+  margin: 0 auto 24px;
+}
+
+.input-block.narrow {
+  max-width: 540px;
+}
+
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+========================================================= */
+
+@media (max-width: 600px) {
+  .step-title {
+    font-size: 36px;
+  }
+
+  .slider-value {
+    font-size: 36px;
+  }
+
+  .pill-option {
+    height: 52px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
+}
+
+/* =========================================================
+   PAYMENT ESTIMATE SCREEN
+========================================================= */
+
+.estimate-card {
+  background: #fff;
+  border: 2px solid var(--color-brand-teal);
+  border-radius: 24px;
+  padding: 48px 40px;
+  margin: 0 auto 48px;
+  max-width: 640px;
+}
+
+.estimate-summary {
+  margin-bottom: 32px;
+}
+
+.estimate-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.estimate-label {
+  font-size: var(--font-size-16);
+  color: var(--color-font-primary);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-main);
+}
+
+.estimate-value {
+  font-size: var(--font-size-16);
+  color: var(--color-font-primary);
+  font-family: var(--font-family-main);
+}
+
+.estimate-payment {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.estimate-payment-amount {
+  font-size: 72px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-brand-teal);
+  line-height: 1.1;
+  font-family: var(--font-family-main);
+}
+
+.estimate-next-steps {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #fff;
+  border: 2px solid var(--color-brand-teal);
+  border-radius: 24px;
+}
+
+.estimate-subtitle {
+  font-size: var(--font-size-28);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-font-primary);
+  margin-bottom: 16px;
+  font-family: var(--font-family-main);
+}
+
+.estimate-text {
+  font-size: var(--font-size-16);
+  color: var(--color-font-muted);
+  line-height: 1.6;
+  font-family: var(--font-family-main);
+}
+
+@media (max-width: 600px) {
+  .estimate-card {
+    padding: 32px 24px;
+  }
+
+  .estimate-payment-amount {
+    font-size: 48px;
+  }
+
+  .estimate-next-steps {
+    padding: 24px;
+  }
+}
+
+/* =========================================================
+   COMPLETION PAGE STYLES
+========================================================= */
+
+.completion-page .prequal-flow {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-bg-main);
+}
+
+.completion-page .container {
+  width: 100%;
+  max-width: 800px;
+  padding: 10px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  color: var(--color-font-primary);
+  margin-top: 0;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-28);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 20px;
+}
+
+.card p {
+  color: var(--color-font-primary);
+  font-family: var(--font-family-main);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-size: var(--font-size-16);
+}
+
+.card p strong {
+  font-weight: var(--font-weight-medium);
+}
+
+.card p a {
+  color: var(--color-brand-teal);
+  text-decoration: none;
+}
+
+.card p a:hover {
+  text-decoration: underline;
+}
+
+.card p .btn {
+  display: inline-block;
+  width: auto;
+  padding: 12px 24px;
+  margin-top: 10px;
+  background-color: var(--color-brand-teal);
+  color: var(--color-font-primary);
+  border-radius: 9999px;
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.card p .btn:hover {
+  box-shadow: 0 4px 12px rgba(47, 202, 178, 0.3);
+}
+
+.payment-display {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.payment-display label {
+  color: var(--color-font-primary);
+  font-family: var(--font-family-main);
+  font-size: 18px;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: var(--font-weight-medium);
+}
+
+.payment-display .amount {
+  font-size: 48px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-brand-teal);
+  font-family: var(--font-family-main);
+}
+
+.term-slider-container {
+  margin: 30px 0;
+}
+
+.term-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  margin: 20px 0;
+  position: relative;
+  z-index: 2;
+  appearance: none;
+  cursor: pointer;
+}
+
+.term-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-brand-teal);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.term-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-brand-teal);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.term-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-family-main);
+  color: var(--color-font-primary);
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.disclaimer {
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 24px;
+  }
+
+  .payment-display .amount {
+    font-size: 32px;
+  }
+
+  .term-slider-container {
+    margin: 20px 0;
+  }
+
+  .term-labels {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .payment-display .amount {
+    font-size: 28px;
+  }
+}
