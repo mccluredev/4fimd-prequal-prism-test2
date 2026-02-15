@@ -175,21 +175,52 @@
 
 @media (max-width: 600px) {
   .step-title {
-    font-size: 36px;
+    font-size: 32px;
+  }
+
+  .step-subtitle {
+    font-size: 16px;
   }
 
   .slider-value {
     font-size: 36px;
   }
 
+  .slider-block {
+    max-width: 100%;
+  }
+
   .pill-option {
-    height: 52px;
-    padding: 0 20px;
+    height: auto;
+    min-height: 52px;
+    padding: 12px 20px;
     font-size: 15px;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  .pill-grid {
+    max-width: 100%;
+  }
+
+  .two-col {
+    max-width: 100%;
+  }
+
+  .input-block {
+    max-width: 100%;
+  }
+
+  .input-block.narrow {
+    max-width: 100%;
   }
 
   .payer-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .payer-mix-container {
+    max-width: 100%;
   }
 }
 
@@ -203,7 +234,7 @@
   border-radius: 24px;
   padding: 48px 40px;
   margin: 0 auto 48px;
-  max-width: 640px;
+  max-width: min(640px, 100%);
 }
 
 .estimate-summary {
@@ -245,7 +276,7 @@
 }
 
 .estimate-next-steps {
-  max-width: 640px;
+  max-width: min(640px, 100%);
   margin: 0 auto;
   padding: 32px;
   background: #fff;
@@ -303,11 +334,13 @@
   justify-content: center;
   align-items: center;
   background-color: var(--color-bg-main);
+  overflow-x: hidden;
 }
 
 .completion-page .container {
   width: 100%;
   max-width: 800px;
+  max-width: min(800px, 100%);
   padding: 10px;
 }
 

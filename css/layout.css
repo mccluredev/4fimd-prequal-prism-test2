@@ -1,9 +1,13 @@
 /* ================================================
-   GLOBAL — Prevent page scroll
+   GLOBAL
 ================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html, body {
   height: 100%;
-  overflow: hidden; /* prevents full-page scroll */
+  overflow: hidden; /* prevents full-page scroll on desktop */
 }
 
 /* Allow scrolling on completion page */
@@ -248,11 +252,14 @@ body.completion-page html {
 
   html, body {
     overflow: auto;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   .layout {
     flex-direction: column;
     height: auto;
+    overflow-x: hidden;
   }
 
   .sidebar {
@@ -261,9 +268,20 @@ body.completion-page html {
 
   .content-area {
     width: 100%;
+    max-width: 100vw;
     height: auto;
     overflow: visible;
+    overflow-x: hidden;
     padding: 40px 24px;
+    justify-content: flex-start;
+  }
+
+  #form-container {
+    max-width: 100%;
+  }
+
+  .step {
+    max-width: 100%;
   }
 
   .step-actions {
@@ -282,6 +300,10 @@ body.completion-page html {
 
   .step-header {
     margin-bottom: 32px;
+  }
+
+  .step-title {
+    font-size: 32px;
   }
 
   .step-actions {
