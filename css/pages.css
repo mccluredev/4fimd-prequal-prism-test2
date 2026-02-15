@@ -173,27 +173,30 @@
    RESPONSIVE ADJUSTMENTS
 ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .step-title {
-    font-size: 32px;
+    font-size: clamp(24px, 7vw, 40px);
   }
 
   .step-subtitle {
     font-size: 16px;
+    margin-top: 12px;
   }
 
   .slider-value {
-    font-size: 36px;
+    font-size: clamp(28px, 8vw, 36px);
+    margin-bottom: 16px;
   }
 
   .slider-block {
     max-width: 100%;
+    margin-bottom: 24px;
   }
 
   .pill-option {
     height: auto;
-    min-height: 52px;
-    padding: 12px 20px;
+    min-height: 48px;
+    padding: 10px 16px;
     font-size: 15px;
     white-space: normal;
     word-wrap: break-word;
@@ -201,18 +204,35 @@
 
   .pill-grid {
     max-width: 100%;
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+
+  .pill-grid.three-col {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .two-col {
     max-width: 100%;
+    gap: 16px;
+    margin-bottom: 16px;
   }
 
   .input-block {
     max-width: 100%;
+    margin-bottom: 16px;
   }
 
   .input-block.narrow {
     max-width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .step-actions {
+    margin-top: 24px;
   }
 
   .payer-grid {
@@ -221,6 +241,10 @@
 
   .payer-mix-container {
     max-width: 100%;
+  }
+
+  .disclaimer-text {
+    margin-top: 16px;
   }
 }
 
