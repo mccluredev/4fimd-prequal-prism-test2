@@ -366,7 +366,7 @@
                     <div class="two-col">
                         <div class="input-block">
                             <label for="business-years-input" class="input-label">How long has it been in business? (in years)</label>
-                            <input id="business-years-input" type="text" placeholder="7" />
+                            <input id="business-years-input" type="text" inputmode="numeric" placeholder="7" />
                         </div>
                         <div class="input-block">
                             <label for="business-zip-input" class="input-label">What is your business zip code?</label>
@@ -377,11 +377,11 @@
                     <div class="two-col">
                         <div class="input-block">
                             <label for="physicians-count-input" class="input-label">How many physicians are in the practice?</label>
-                            <input id="physicians-count-input" type="number" min="0" placeholder="0" />
+                            <input id="physicians-count-input" type="number" inputmode="numeric" min="0" placeholder="0" />
                         </div>
                         <div class="input-block">
                             <label for="providers-count-input" class="input-label">How many providers are in the practice?</label>
-                            <input id="providers-count-input" type="number" min="0" placeholder="0" />
+                            <input id="providers-count-input" type="number" inputmode="numeric" min="0" placeholder="0" />
                         </div>
                     </div>
 
@@ -423,7 +423,7 @@
                     </header>
 
                     <div class="input-block">
-                        <input id="patient-volume-input" type="number" min="0" placeholder="0" style="text-align: center; font-size: 24px;" />
+                        <input id="patient-volume-input" type="number" inputmode="numeric" min="0" placeholder="0" style="text-align: center; font-size: 24px;" />
                     </div>
 
                     <div class="step-actions">
@@ -442,7 +442,7 @@
                     <div class="payer-mix-container">
                         <div class="input-block">
                             <label for="payers-count-input" class="input-label">How many payers is your practice working with?</label>
-                            <input id="payers-count-input" type="number" min="0" placeholder="0" />
+                            <input id="payers-count-input" type="number" inputmode="numeric" min="0" placeholder="0" />
                         </div>
 
                         <div class="form-group">
@@ -450,19 +450,19 @@
                             <div class="payer-grid">
                                 <div class="payer-field">
                                     <label for="payer-private-input" class="input-label">Private (%)</label>
-                                    <input id="payer-private-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
+                                    <input id="payer-private-input" type="number" inputmode="numeric" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
                                 <div class="payer-field">
                                     <label for="payer-medicare-input" class="input-label">Medicare (%)</label>
-                                    <input id="payer-medicare-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
+                                    <input id="payer-medicare-input" type="number" inputmode="numeric" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
                                 <div class="payer-field">
                                     <label for="payer-medicaid-input" class="input-label">Medicaid (%)</label>
-                                    <input id="payer-medicaid-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
+                                    <input id="payer-medicaid-input" type="number" inputmode="numeric" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
                                 <div class="payer-field">
                                     <label for="payer-other-input" class="input-label">Other (%)</label>
-                                    <input id="payer-other-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
+                                    <input id="payer-other-input" type="number" inputmode="numeric" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
                             </div>
                             <div id="payer-total-display" class="payer-total"></div>
