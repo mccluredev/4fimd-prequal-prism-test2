@@ -264,8 +264,10 @@ body.completion-page html {
 
   .layout {
     flex-direction: column;
+    min-height: 100vh;
     height: auto;
     overflow-x: hidden;
+    background: var(--color-bg-main);
   }
 
   .sidebar {
@@ -275,10 +277,13 @@ body.completion-page html {
   .content-area {
     width: 100%;
     max-width: 100vw;
-    min-height: 100vh;
+    flex: 1;
     overflow: visible;
     overflow-x: hidden;
     padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     background: var(--color-bg-main);
   }
