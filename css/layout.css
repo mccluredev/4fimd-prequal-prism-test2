@@ -86,7 +86,7 @@ body.completion-page html {
 
   background: transparent;
   border: 1px solid var(--color-border-default);
-  color: var(--color-font-muted);
+  color: #b0b0b0;
 
   cursor: default; /* Default cursor */
   transition: all var(--transition-fast);
@@ -256,14 +256,7 @@ body.completion-page html {
   }
 
   .sidebar {
-    width: 100%;
-    height: auto;
-    overflow: visible;
-    padding: 40px 32px;
-  }
-
-  .sidebar-progress {
-    margin-top: 40px;
+    display: none;
   }
 
   .content-area {
@@ -284,10 +277,6 @@ body.completion-page html {
 
 @media (max-width: 600px) {
   .content-area {
-    padding: 24px 16px;
-  }
-
-  .sidebar {
     padding: 24px 16px;
   }
 

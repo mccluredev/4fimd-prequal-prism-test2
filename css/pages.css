@@ -135,6 +135,44 @@
    RESPONSIVE ADJUSTMENTS
 ========================================================= */
 
+/* =========================================================
+   PAYER MIX LAYOUT
+========================================================= */
+
+.payer-mix-container {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.payer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.payer-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.payer-field .input-label {
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.payer-total {
+  text-align: left;
+  font-size: 16px;
+  font-family: var(--font-family-main);
+  color: var(--color-font-primary);
+}
+
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+========================================================= */
+
 @media (max-width: 600px) {
   .step-title {
     font-size: 36px;
@@ -148,6 +186,10 @@
     height: 52px;
     padding: 0 20px;
     font-size: 15px;
+  }
+
+  .payer-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -228,15 +270,25 @@
 
 @media (max-width: 600px) {
   .estimate-card {
-    padding: 32px 24px;
+    padding: 24px 16px;
   }
 
   .estimate-payment-amount {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   .estimate-next-steps {
-    padding: 24px;
+    padding: 20px 16px;
+  }
+
+  .estimate-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .estimate-subtitle {
+    font-size: 22px;
   }
 }
 
@@ -303,7 +355,7 @@
   padding: 12px 24px;
   margin-top: 10px;
   background-color: var(--color-brand-teal);
-  color: var(--color-font-primary);
+  color: #fff;
   border-radius: 9999px;
   font-family: var(--font-family-main);
   font-weight: var(--font-weight-medium);
@@ -394,6 +446,15 @@
 }
 
 @media (max-width: 768px) {
+  .completion-page .prequal-flow {
+    padding: 24px 16px;
+    align-items: flex-start;
+  }
+
+  .completion-page .container {
+    padding: 0;
+  }
+
   .card {
     padding: 24px;
   }
@@ -409,10 +470,25 @@
   .term-labels {
     font-size: 12px;
   }
+
+  .card h3 {
+    font-size: 22px;
+  }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 480px) {
   .payment-display .amount {
     font-size: 28px;
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+
+  .card p .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px 24px;
   }
 }

@@ -94,44 +94,59 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ==========================
      Validation Functions
   ========================== */
-  function showValidationMessage(step, message) {
-    // Remove any existing validation message
-    const existing = step.querySelector('.validation-message');
-    if (existing) existing.remove();
+  function clearErrors(step) {
+    // Remove error classes from all inputs and containers
+    step.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+    // Hide all error messages
+    step.querySelectorAll('.error-message').forEach(msg => {
+      msg.classList.remove('show');
+    });
+  }
 
-    // Create and insert new validation message
-    const validationDiv = document.createElement('div');
-    validationDiv.className = 'validation-message show';
-    validationDiv.textContent = message;
+  function showError(element, message) {
+    // Add error class to the element
+    element.classList.add('error');
 
-    // Insert after the step-actions div (after the Continue button)
-    const actions = step.querySelector('.step-actions');
-    if (actions) {
-      actions.after(validationDiv);
-    } else {
-      step.appendChild(validationDiv);
+    // Find or create error message element
+    let errorMsg = element.nextElementSibling;
+    if (!errorMsg || !errorMsg.classList.contains('error-message')) {
+      errorMsg = document.createElement('div');
+      errorMsg.className = 'error-message';
+      element.parentNode.insertBefore(errorMsg, element.nextSibling);
     }
 
-    // Scroll to the message
-    validationDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Show the error message
+    errorMsg.textContent = message;
+    errorMsg.classList.add('show');
 
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-      validationDiv.classList.remove('show');
-      setTimeout(() => validationDiv.remove(), 300);
-    }, 5000);
+    // Scroll to the error
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   function validateStep(stepId) {
     const step = document.getElementById(stepId);
     if (!step) return true;
 
+    // Clear previous errors
+    clearErrors(step);
+
     // Loan amount validation
     if (stepId === 'step-loan-amount') {
+      const currencyInput = step.querySelector('.currency-input');
       const loanInput = document.getElementById('loan-amount-input');
       const value = loanInput.value.replace(/[^0-9]/g, '');
-      if (!value || parseInt(value) === 0) {
-        showValidationMessage(step, 'Please enter a loan amount');
+      const amount = parseInt(value);
+
+      if (!value || amount === 0) {
+        showError(currencyInput, 'Please enter a loan amount');
+        return false;
+      }
+      if (amount < 1000) {
+        showError(currencyInput, 'Loan amount must be at least $1,000');
+        return false;
+      }
+      if (amount > 1000000) {
+        showError(currencyInput, 'Loan amount cannot exceed $1,000,000');
         return false;
       }
     }
@@ -143,7 +158,10 @@ document.addEventListener("DOMContentLoaded", () => {
       for (const name of radioNames) {
         const checked = step.querySelector(`input[name="${name}"]:checked`);
         if (!checked) {
-          showValidationMessage(step, 'Please select an option to continue');
+          const pillGrid = step.querySelector('.pill-grid');
+          if (pillGrid) {
+            showError(pillGrid, 'Please select an option to continue');
+          }
           return false;
         }
       }
@@ -157,20 +175,32 @@ document.addEventListener("DOMContentLoaded", () => {
       const specialty = document.getElementById('specialty-input');
 
       if (!firstName.value.trim()) {
-        showValidationMessage(step, 'Please enter your first name');
+        showError(firstName, 'Please enter your first name');
         return false;
       }
       if (!lastName.value.trim()) {
-        showValidationMessage(step, 'Please enter your last name');
+        showError(lastName, 'Please enter your last name');
         return false;
       }
       if (!npi.value.trim()) {
-        showValidationMessage(step, 'Please enter your NPI number');
+        showError(npi, 'Please enter your NPI number');
+        return false;
+      }
+      if (npi.value.replace(/\D/g, '').length !== 10) {
+        showError(npi, 'NPI number must be exactly 10 digits');
         return false;
       }
       if (!specialty.value) {
-        showValidationMessage(step, 'Please select your medical specialty');
+        showError(specialty, 'Please select your medical specialty');
         return false;
+      }
+      // If "Other" is selected, validate the other specialty input
+      if (specialty.value === 'Other') {
+        const otherSpecialty = document.getElementById('other-specialty-input');
+        if (!otherSpecialty.value.trim()) {
+          showError(otherSpecialty, 'Please specify your specialty');
+          return false;
+        }
       }
     }
 
@@ -181,21 +211,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const consent = document.getElementById('consent-input');
 
       if (!email.value.trim()) {
-        showValidationMessage(step, 'Please enter your email address');
+        showError(email, 'Please enter your email address');
         return false;
       }
       // Basic email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email.value)) {
-        showValidationMessage(step, 'Please enter a valid email address');
+        showError(email, 'Please enter a valid email address');
         return false;
       }
       if (!phone.value.trim()) {
-        showValidationMessage(step, 'Please enter your phone number');
+        showError(phone, 'Please enter your phone number');
         return false;
       }
       if (!consent.checked) {
-        showValidationMessage(step, 'Please agree to the contact terms to continue');
+        const consentLabel = step.querySelector('.checkbox-label');
+        showError(consentLabel, 'Please agree to the contact terms to continue');
         return false;
       }
     }
@@ -204,17 +235,27 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stepId === 'step-employer-employed') {
       const employerName = document.getElementById('employer-name-input');
       if (!employerName.value.trim()) {
-        showValidationMessage(step, 'Please enter your employer name');
+        showError(employerName, 'Please enter your employer name');
         return false;
       }
     }
 
     // Practice basics validation (owner branch)
     if (stepId === 'step-practice-basics') {
+      const businessZip = document.getElementById('business-zip-input');
       const physiciansCount = document.getElementById('physicians-count-input');
       const providersCount = document.getElementById('providers-count-input');
-      if (!physiciansCount.value || !providersCount.value) {
-        showValidationMessage(step, 'Please fill in all practice information');
+
+      if (businessZip && businessZip.value.trim() && businessZip.value.replace(/\D/g, '').length !== 5) {
+        showError(businessZip, 'Zip code must be exactly 5 digits');
+        return false;
+      }
+      if (!physiciansCount.value) {
+        showError(physiciansCount, 'Please enter the number of physicians');
+        return false;
+      }
+      if (!providersCount.value) {
+        showError(providersCount, 'Please enter the number of providers');
         return false;
       }
     }
@@ -223,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stepId === 'step-patient-volume') {
       const patientVolume = document.getElementById('patient-volume-input');
       if (!patientVolume.value) {
-        showValidationMessage(step, 'Please enter the monthly patient volume');
+        showError(patientVolume, 'Please enter the monthly patient volume');
         return false;
       }
     }
@@ -237,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const otherInput = document.getElementById('payer-other-input');
 
       if (!payersCount.value) {
-        showValidationMessage(step, 'Please enter the number of unique payers');
+        showError(payersCount, 'Please enter the number of unique payers');
         return false;
       }
 
@@ -247,7 +288,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     parseInt(otherInput.value || 0);
 
       if (total !== 100) {
-        showValidationMessage(step, 'Payer percentages must add up to 100%');
+        const payerContainer = step.querySelector('.form-group');
+        showError(payerContainer, 'Payer percentages must add up to 100%');
         return false;
       }
     }
@@ -367,8 +409,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateProgress() {
     const visibleSteps = getVisibleSteps();
-    const totalSteps = visibleSteps.length;
-    const pct = Math.round(((currentIndex + 1) / totalSteps) * 100);
+    const activeStep = visibleSteps[currentIndex];
+
+    // Define the longest path (Owner flow) as the denominator for consistent progress
+    // Pre-branch questions: loan-amount, loan-purpose, credit-score, income, debt (5 questions)
+    // Owner branch adds: employment-structure, practice-basics, affiliations, patient-volume, payer-mix (5 questions)
+    // Common questions: insurance, personal, contact (3 questions)
+    // Total: 13 questions (excluding transition page)
+    const totalQuestions = 13;
+
+    // Map each step to its progress count (questions answered when reaching this step)
+    const progressMap = {
+      'step-loan-amount': 0,
+      'step-loan-purpose': 1,
+      'step-credit-score': 2,
+      'step-income': 3,
+      'step-debt': 4,
+      'step-transition': 5, // Jumps to 5 on transition (38%)
+      'step-employment-structure': 5, // Stays at 5 (38%)
+      // Employed branch
+      'step-compensation-employed': 6,
+      'step-employer-employed': 7,
+      // Owner branch
+      'step-practice-basics': 6,
+      'step-affiliations': 7,
+      'step-patient-volume': 8,
+      'step-payer-mix': 9,
+      // Common final questions
+      'step-insurance': 10,
+      'step-personal': 11,
+      'step-contact': 12,
+      'step-estimate': 13
+    };
+
+    const questionsAnswered = progressMap[activeStep?.id] || 0;
+    const pct = Math.round((questionsAnswered / totalQuestions) * 100);
     const offset = circumference - (pct / 100) * circumference;
     dial.style.strokeDashoffset = offset;
     label.textContent = `${pct}%`;
@@ -459,6 +534,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const clean = amountParam.replace(/[^\d]/g, "");
       loanInput.value = formatter.format(clean);
       setSummary("summary-loan-amount", formatCurrency(clean));
+
+      // If loan amount is pre-filled, skip to next step
+      goToStep('step-loan-purpose');
     }
 
     loanInput.addEventListener("input", () => {
@@ -576,6 +654,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================
+     Specialty "Other" field toggle
+  ========================== */
+  const specialtyInput = document.getElementById("specialty-input");
+  const otherSpecialtyBlock = document.getElementById("other-specialty-block");
+  const otherSpecialtyInput = document.getElementById("other-specialty-input");
+
+  if (specialtyInput && otherSpecialtyBlock && otherSpecialtyInput) {
+    specialtyInput.addEventListener("change", (e) => {
+      if (e.target.value === "Other") {
+        otherSpecialtyBlock.style.display = "block";
+      } else {
+        otherSpecialtyBlock.style.display = "none";
+        otherSpecialtyInput.value = ""; // Clear the other specialty input
+      }
+    });
+  }
+
+  /* ==========================
      Business zip code validation (5 digits)
   ========================== */
   const businessZipInput = document.getElementById("business-zip-input");
@@ -588,19 +684,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================
-     Payer mix auto-calculation
+     Payer mix calculation
   ========================== */
   const payerInputs = document.querySelectorAll('.payer-percentage');
   const payerTotalDisplay = document.getElementById('payer-total-display');
 
   if (payerInputs.length > 0 && payerTotalDisplay) {
     function updatePayerTotal() {
-      const private = parseInt(document.getElementById('payer-private-input').value) || 0;
-      const medicare = parseInt(document.getElementById('payer-medicare-input').value) || 0;
-      const medicaid = parseInt(document.getElementById('payer-medicaid-input').value) || 0;
-      const other = parseInt(document.getElementById('payer-other-input').value) || 0;
+      const privateVal = parseInt(document.getElementById('payer-private-input').value) || 0;
+      const medicareVal = parseInt(document.getElementById('payer-medicare-input').value) || 0;
+      const medicaidVal = parseInt(document.getElementById('payer-medicaid-input').value) || 0;
+      const otherVal = parseInt(document.getElementById('payer-other-input').value) || 0;
 
-      const total = private + medicare + medicaid + other;
+      const total = privateVal + medicareVal + medicaidVal + otherVal;
 
       if (total === 0) {
         payerTotalDisplay.textContent = '';
@@ -608,33 +704,43 @@ document.addEventListener("DOMContentLoaded", () => {
         payerTotalDisplay.textContent = 'Total: 100% ✓';
         payerTotalDisplay.style.color = 'var(--color-brand-teal)';
       } else {
-        payerTotalDisplay.textContent = `Total: ${total}% (must equal 100%)`;
-        payerTotalDisplay.style.color = 'var(--color-font-muted)';
+        payerTotalDisplay.textContent = `Total: ${total}%`;
+        payerTotalDisplay.style.color = 'var(--color-font-primary)';
       }
     }
 
-    // Auto-fill last field to reach 100%
-    payerInputs.forEach((input, index) => {
+    // Validate input: don't allow more than 100 per field or total exceeding 100
+    payerInputs.forEach((input) => {
       input.addEventListener('input', (e) => {
+        let value = parseInt(e.target.value) || 0;
+
+        // Cap individual input at 100
+        if (value > 100) {
+          e.target.value = 100;
+          value = 100;
+        }
+
+        // Check if total would exceed 100
+        const privateVal = parseInt(document.getElementById('payer-private-input').value) || 0;
+        const medicareVal = parseInt(document.getElementById('payer-medicare-input').value) || 0;
+        const medicaidVal = parseInt(document.getElementById('payer-medicaid-input').value) || 0;
+        const otherVal = parseInt(document.getElementById('payer-other-input').value) || 0;
+        const total = privateVal + medicareVal + medicaidVal + otherVal;
+
+        // If total exceeds 100, reduce current input to make it exactly 100
+        if (total > 100) {
+          const excess = total - 100;
+          const newValue = value - excess;
+          e.target.value = Math.max(0, newValue);
+        }
+
         updatePayerTotal();
+      });
 
-        // Auto-calculate the empty field if 3 fields are filled
-        const filledInputs = Array.from(payerInputs).filter(inp => inp.value && parseInt(inp.value) > 0);
-        const emptyInputs = Array.from(payerInputs).filter(inp => !inp.value || parseInt(inp.value) === 0);
-
-        if (filledInputs.length === 3 && emptyInputs.length === 1) {
-          const private = parseInt(document.getElementById('payer-private-input').value) || 0;
-          const medicare = parseInt(document.getElementById('payer-medicare-input').value) || 0;
-          const medicaid = parseInt(document.getElementById('payer-medicaid-input').value) || 0;
-          const other = parseInt(document.getElementById('payer-other-input').value) || 0;
-
-          const currentTotal = private + medicare + medicaid + other;
-          const remaining = 100 - currentTotal;
-
-          if (remaining >= 0 && remaining <= 100) {
-            emptyInputs[0].value = remaining;
-            updatePayerTotal();
-          }
+      // Prevent negative values
+      input.addEventListener('keydown', (e) => {
+        if (e.key === '-' || e.key === 'e' || e.key === '+') {
+          e.preventDefault();
         }
       });
     });
@@ -746,6 +852,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Map NPI and specialty
     document.getElementById('sf-npi').value = formData['npi-input'] || '';
     document.getElementById('sf-specialty').value = formData['specialty-input'] || '';
+    document.getElementById('sf-other-specialty').value = formData['other-specialty-input'] || '';
   }
 
   /* ==========================
@@ -765,13 +872,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const consentInput = document.getElementById('consent-input');
       const contactStep = document.getElementById('step-contact');
 
+      clearErrors(contactStep);
+
       if (!emailInput.value || !phoneInput.value) {
-        showValidationMessage(contactStep, "Please fill in all required fields.");
+        if (!emailInput.value) {
+          showError(emailInput, 'Please enter your email address');
+        }
+        if (!phoneInput.value) {
+          showError(phoneInput, 'Please enter your phone number');
+        }
         return;
       }
 
       if (!consentInput.checked) {
-        showValidationMessage(contactStep, "Please agree to the contact terms to continue.");
+        const consentLabel = contactStep.querySelector('.checkbox-label');
+        showError(consentLabel, 'Please agree to the contact terms to continue');
         return;
       }
 
@@ -833,20 +948,35 @@ document.addEventListener("DOMContentLoaded", () => {
           // Populate hidden Salesforce fields
           populateSalesforceFields(formData);
 
-          // Submit form to hidden iframe so we can control redirect
-          const iframe = document.createElement('iframe');
-          iframe.name = 'salesforce-frame';
-          iframe.style.display = 'none';
-          document.body.appendChild(iframe);
+          console.log('Submitting to Salesforce...');
 
+          // Create hidden iframe for Salesforce submission
+          let iframe = document.querySelector('iframe[name="salesforce-submit"]');
+          if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.name = 'salesforce-submit';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+          }
+
+          // Submit form to iframe (Salesforce will process it)
           const form = document.getElementById('prequal-form');
-          form.target = 'salesforce-frame';
+          form.target = 'salesforce-submit';
+
+          // Remove the retURL temporarily so Salesforce doesn't redirect the iframe
+          const retURLInput = document.getElementById('salesforce-returl');
+          const originalRetURL = retURLInput.value;
+          retURLInput.value = '';
+
           form.submit();
 
-          // Wait for Salesforce submission, then redirect manually
+          console.log('Form submitted to Salesforce iframe');
+
+          // Wait for Salesforce to process (3 seconds), then redirect manually
           setTimeout(() => {
-            window.location.href = '/complete/?submitted=true';
-          }, 2000);
+            console.log('Redirecting to complete page...');
+            window.location.href = 'complete/?submitted=true';
+          }, 3000);
 
         } catch (error) {
           console.error('reCAPTCHA Enterprise error:', error);

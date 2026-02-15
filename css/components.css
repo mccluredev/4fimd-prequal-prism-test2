@@ -23,12 +23,12 @@
 }
 
 .btn-primary {
-  background: #e8e8e8;
-  color: var(--color-font-primary);
+  background: var(--color-brand-teal);
+  color: var(--color-font-inverse);
 }
 
 .btn-primary:hover {
-  background: #d4d4d4;
+  background: #1da090;
   transform: translateY(-1px);
 }
 
@@ -93,6 +93,7 @@ select {
   background: #fff;
   transition: border-color var(--transition-fast),
               box-shadow var(--transition-fast);
+  box-sizing: border-box;
 }
 
 input[type="text"]:focus,
@@ -108,7 +109,12 @@ select:focus {
 /* Placeholder styling */
 input::placeholder,
 select option[disabled] {
-  color: var(--color-font-primary);
+  color: #b0b0b0;
+  opacity: 1;
+}
+
+textarea::placeholder {
+  color: #b0b0b0;
   opacity: 1;
 }
 
@@ -276,33 +282,45 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* =========================================================
-   VALIDATION MESSAGE
+   VALIDATION STYLING
 ========================================================= */
 
-.validation-message {
-  background: #f8f8f8;
-  border: 1px solid #e0e0e0;
-  color: var(--color-font-muted);
-  padding: 8px 12px;
-  margin: 12px auto 0;
-  border-radius: 6px;
-  font-family: var(--font-family-main);
-  font-size: var(--font-size-13);
-  line-height: 1.4;
-  text-align: center;
-  max-width: 400px;
-  display: none;
-  animation: slideDown 0.3s ease-out;
+/* Error state for inputs */
+input.error,
+select.error,
+.currency-input.error input {
+  background-color: #ffebee !important;
+  border-color: #ef5350 !important;
 }
 
-.validation-message.show {
+/* Inline error message */
+.error-message {
+  color: #d32f2f;
+  font-size: var(--font-size-13);
+  font-family: var(--font-family-main);
+  margin-top: 8px;
+  display: none;
+  text-align: left;
+  line-height: 1.4;
+  width: 100%;
+}
+
+/* Error message for pill grids - ensure left alignment */
+.pill-grid + .error-message {
+  text-align: left;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.error-message.show {
   display: block;
+  animation: slideDown 0.3s ease-out;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-4px);
   }
   to {
     opacity: 1;

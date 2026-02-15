@@ -49,7 +49,7 @@
                 <!-- Salesforce Web-to-Lead Hidden Fields -->
                 <input type="hidden" name="captcha_settings" value='{"keyname":"PrequalReCaptchaV3","fallback":"true","orgId":"00DQL00000F5hdB","ts":""}'>
                 <input type="hidden" name="oid" value="00DQL00000F5hdB">
-                <input type="hidden" name="retURL" id="salesforce-returl" value="http://localhost:1000/complete/?submitted=true">
+                <input type="hidden" name="retURL" id="salesforce-returl" value="https://prequaltest.4fimd.com/complete/?submitted=true">
                 <input type="hidden" name="lead_source" value="Web to Lead">
                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
@@ -82,6 +82,7 @@
                 <input type="hidden" name="00NQL00000mBMmL" id="sf-insurance-types">
                 <input type="hidden" name="00NQL00000mBMpZ" id="sf-npi">
                 <input type="hidden" name="00NQL00000mC5GP" id="sf-specialty">
+                <input type="hidden" name="00NQL00000mGQnh" id="sf-other-specialty">
 
                 <!-- SECTION 1 — LOAN INFORMATION -->
 
@@ -89,9 +90,8 @@
                 <section class="step active" id="step-loan-amount" data-section="loan-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Requested <span class="accent-word">loan amount</span>
+                            How much would you like to <span class="accent-word">borrow</span>?
                         </h1>
-                        <p class="step-subtitle">Tell us how much you'd like to finance.</p>
                     </header>
 
                     <div class="input-block">
@@ -247,7 +247,7 @@
                 <section class="step" id="step-employment-structure" data-section="employment-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Tell us about your <span class="accent-word">employment structure</span>.
+                            What best describes your <span class="accent-word">role</span>?
                         </h1>
                     </header>
 
@@ -271,12 +271,12 @@
                 <section class="step branch-employed" id="step-compensation-employed" data-section="employment-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Tell us about your <span class="accent-word">payment structure</span>.
+                            How do you generate <span class="accent-word">income</span>?
                         </h1>
                     </header>
 
                     <div class="form-group">
-                        <label class="form-label">What best describes your situation?</label>
+                        <label class="form-label">Tell us about your employment structure</label>
                         <div class="pill-grid three-col">
                             <label class="pill-option">
                                 <input type="radio" name="payment-type" value="W2" />
@@ -323,7 +323,7 @@
                 <section class="step branch-employed" id="step-employer-employed" data-section="practice-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Tell us about your <span class="accent-word">employer</span>.
+                            Who is your <span class="accent-word">employer</span>?
                         </h1>
                     </header>
 
@@ -359,14 +359,14 @@
                 <section class="step branch-owner" id="step-practice-basics" data-section="practice-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Tell us about the <span class="accent-word">practice</span>.
+                            What does <span class="accent-word">your practice</span> look like?
                         </h1>
                     </header>
 
                     <div class="two-col">
                         <div class="input-block">
                             <label for="business-years-input" class="input-label">How long has it been in business? (in years)</label>
-                            <input id="business-years-input" type="text" />
+                            <input id="business-years-input" type="text" placeholder="7" />
                         </div>
                         <div class="input-block">
                             <label for="business-zip-input" class="input-label">What is your business zip code?</label>
@@ -435,37 +435,37 @@
                 <section class="step branch-owner" id="step-payer-mix" data-section="practice-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Tell us about your <span class="accent-word">payer mix</span>.
+                            What is your <span class="accent-word">payer mix</span>?
                         </h1>
                     </header>
 
-                    <div style="max-width: 880px; margin: 0 auto;">
-                        <div class="input-block" style="margin-bottom: 32px;">
-                            <label for="payers-count-input" class="input-label" style="text-align: left;">How many payers is your practice working with?</label>
-                            <input id="payers-count-input" type="number" min="0" placeholder="0" style="text-align: center;" />
+                    <div class="payer-mix-container">
+                        <div class="input-block">
+                            <label for="payers-count-input" class="input-label">How many payers is your practice working with?</label>
+                            <input id="payers-count-input" type="number" min="0" placeholder="0" />
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label" style="text-align: left;">Please estimate the percentage makeup of your payer mix</label>
-                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
-                                <div class="input-block" style="margin-bottom: 0;">
+                            <label class="form-label">Please estimate the percentage makeup of your payer mix</label>
+                            <div class="payer-grid">
+                                <div class="payer-field">
                                     <label for="payer-private-input" class="input-label">Private (%)</label>
                                     <input id="payer-private-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
-                                <div class="input-block" style="margin-bottom: 0;">
+                                <div class="payer-field">
                                     <label for="payer-medicare-input" class="input-label">Medicare (%)</label>
                                     <input id="payer-medicare-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
-                                <div class="input-block" style="margin-bottom: 0;">
+                                <div class="payer-field">
                                     <label for="payer-medicaid-input" class="input-label">Medicaid (%)</label>
                                     <input id="payer-medicaid-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
-                                <div class="input-block" style="margin-bottom: 0;">
+                                <div class="payer-field">
                                     <label for="payer-other-input" class="input-label">Other (%)</label>
                                     <input id="payer-other-input" type="number" min="0" max="100" step="1" placeholder="0" class="payer-percentage" />
                                 </div>
                             </div>
-                            <div id="payer-total-display" style="text-align: left; margin-top: 16px; font-size: 14px; color: var(--color-font-muted);"></div>
+                            <div id="payer-total-display" class="payer-total"></div>
                         </div>
                     </div>
 
@@ -481,7 +481,7 @@
                 <section class="step" id="step-insurance" data-section="personal-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Tell us about your <span class="accent-word">insurance</span> coverage.
+                            Do you have <span class="accent-word">insurance</span>?
                         </h1>
                         <p class="step-subtitle">Check all that apply to you.</p>
                     </header>
@@ -510,7 +510,7 @@
                 <section class="step" id="step-personal" data-section="personal-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            Tell us about <span class="accent-word">yourself</span>.
+                            What's your <span class="accent-word">name</span>?
                         </h1>
                         <p class="step-subtitle">This helps us customize your payment and pre-qualification</p>
                     </header>
@@ -531,26 +531,49 @@
                         <div class="input-block">
                             <select id="specialty-input">
                                 <option value="" disabled selected>Medical Specialty</option>
+                                <option value="Acupuncturist (LAc, DAOM)">Acupuncturist (LAc, DAOM)</option>
+                                <option value="Advanced Practicing Registered Nurse (APRN)">Advanced Practicing Registered Nurse (APRN)</option>
+                                <option value="Advanced Registered Nurse Practitioner (ARNP, NP)">Advanced Registered Nurse Practitioner (ARNP, NP)</option>
+                                <option value="Anesthesiology">Anesthesiology</option>
+                                <option value="Cardiology">Cardiology</option>
+                                <option value="Certified Registered Nurse Anesthetist (CRNA)">Certified Registered Nurse Anesthetist (CRNA)</option>
+                                <option value="Chiropractor (DC)">Chiropractor (DC)</option>
+                                <option value="Dentist (DDS, DMD)">Dentist (DDS, DMD)</option>
+                                <option value="Dermatology">Dermatology</option>
+                                <option value="Emergency Medicine">Emergency Medicine</option>
                                 <option value="Family Medicine">Family Medicine</option>
                                 <option value="Internal Medicine">Internal Medicine</option>
-                                <option value="Pediatrics">Pediatrics</option>
-                                <option value="Obstetrics & Gynecology">Obstetrics & Gynecology</option>
-                                <option value="Surgery">Surgery</option>
-                                <option value="Orthopedics">Orthopedics</option>
-                                <option value="Cardiology">Cardiology</option>
-                                <option value="Dermatology">Dermatology</option>
-                                <option value="Psychiatry">Psychiatry</option>
-                                <option value="Radiology">Radiology</option>
-                                <option value="Anesthesiology">Anesthesiology</option>
-                                <option value="Emergency Medicine">Emergency Medicine</option>
-                                <option value="Pathology">Pathology</option>
+                                <option value="Mental Health Counselor (LPC, LMHC, NCC)">Mental Health Counselor (LPC, LMHC, NCC)</option>
+                                <option value="Naturopathic Doctor (ND, NMD)">Naturopathic Doctor (ND, NMD)</option>
                                 <option value="Neurology">Neurology</option>
+                                <option value="Obstetrics & Gynecology">Obstetrics & Gynecology</option>
+                                <option value="Occupational Therapist (OTR, OTD)">Occupational Therapist (OTR, OTD)</option>
                                 <option value="Ophthalmology">Ophthalmology</option>
-                                <option value="Urology">Urology</option>
+                                <option value="Optometrist (OD)">Optometrist (OD)</option>
+                                <option value="Orthopedics">Orthopedics</option>
                                 <option value="Otolaryngology">Otolaryngology</option>
+                                <option value="Pathology">Pathology</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                                <option value="Pharmacist (PharmD, RPh)">Pharmacist (PharmD, RPh)</option>
+                                <option value="Physical Therapist (PT, DPT)">Physical Therapist (PT, DPT)</option>
+                                <option value="Physician/Surgeon (MD, DO)">Physician/Surgeon (MD, DO)</option>
+                                <option value="Physician Assistant (PA, PA-C)">Physician Assistant (PA, PA-C)</option>
                                 <option value="Plastic Surgery">Plastic Surgery</option>
+                                <option value="Podiatrist (DPM)">Podiatrist (DPM)</option>
+                                <option value="Psychiatry">Psychiatry</option>
+                                <option value="Psychologist (PhD, PsyD, EdD)">Psychologist (PhD, PsyD, EdD)</option>
+                                <option value="Radiology">Radiology</option>
+                                <option value="Social Worker (LCSW, MSW, LICSW)">Social Worker (LCSW, MSW, LICSW)</option>
+                                <option value="Speech-Language Pathologist (SLP, CCC-SLP)">Speech-Language Pathologist (SLP, CCC-SLP)</option>
+                                <option value="Surgery">Surgery</option>
+                                <option value="Urology">Urology</option>
+                                <option value="Veterinarian (DVM)">Veterinarian (DVM)</option>
                                 <option value="Other">Other</option>
                             </select>
+                        </div>
+                        <div class="input-block" id="other-specialty-block" style="display: none;">
+                            <label for="other-specialty-input" class="input-label">Please specify your specialty</label>
+                            <input id="other-specialty-input" type="text" placeholder="Enter your specialty" />
                         </div>
                     </div>
 
@@ -568,7 +591,7 @@
                 <section class="step" id="step-contact" data-section="personal-info">
                     <header class="step-header">
                         <h1 class="step-title">
-                            You're <span class="accent-word">one step</span> away.
+                            How can we <span class="accent-word">reach you</span>?
                         </h1>
                     </header>
 
